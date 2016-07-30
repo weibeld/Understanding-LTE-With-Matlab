@@ -5,12 +5,12 @@
 %
 % Input:
 %   bits:    column vector of bits
-%   scheme:  modulation scheme string, 'QPSK', '16QAM', or '64QAM'
+%   scheme:  modulation scheme, 'QPSK'|'16QAM'|'64QAM'
 %
 % Output:
 %   symb:  complex vector representing sequence of modulation symbols
 %
-% Understandig LTE With Matlab, Chap. 3, p. 74
+% Understandig LTE With Matlab, Chap. 4, p. 74
 
 % Daniel Weibel <danielmartin.weibel@polimi.it> July 2016
 %------------------------------------------------------------------------------%
@@ -24,20 +24,20 @@ persistent qpsk qam16 qam64
 if isempty(qpsk)
   % Set up QPSK modulator according to the LTE standard. Note that there would
   % also be the system object comm.QPSKModulator.
-  qpsk  = comm.PSKModulator(4, ...
+  Qpsk  = comm.PSKModulator(4, ...
                             'BitInput', true, ...
                             'PhaseOffset', pi/4, ...
                             'SymbolMapping', 'Custom', ...
                             'CustomSymbolMapping', [0 2 3 1]);
   % Set up 16QAM modulator according to the LTE standard.
-  qam16 = comm.RectangularQAMModulator(16, ...
+  Qam16 = comm.RectangularQAMModulator(16, ...
                             'BitInput', true, ...
                             'NormalizationMethod', 'Average power', ...
                             'SymbolMapping', 'Custom', ...
                             'CustomSymbolMapping', [11 10 14 15 9 8 12 13 1 ...
                                                     0 4 5 3 2 6 7]);
   % Set up 64QAM modulator according to the LTE standard.
-  qam64 = comm.RectangularQAMModulator(64, ...
+  Qam64 = comm.RectangularQAMModulator(64, ...
                             'BitInput', true, ...
                             'NormalizationMethod', 'Average power', ...
                             'SymbolMapping', 'Custom', ...
@@ -50,11 +50,11 @@ end
 
 switch scheme
   case 'QPSK'
-    symb = step(qpsk, bits);
+    symb = step(Qpsk, bits);
   case '16QAM'
-    symb = step(qam16, bits);
+    symb = step(Qam16, bits);
   case '64QAM'
-    symb = step(qam64, bits);
+    symb = step(Qam64, bits);
   otherwise
     error('Invalid modulation scheme. Use ''QPSK'', ''16QAM'', or ''64QAM''.');
 end

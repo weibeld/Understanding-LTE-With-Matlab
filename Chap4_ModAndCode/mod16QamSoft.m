@@ -1,16 +1,18 @@
-% modQpskSoft- Run bit error rate evaluation on simple communication system.
+% mod16QamSoft- Run BER evaluation on simple communication system.
 %
 % The communication system consists of:
-%   - 16QAM modulator
+%   - 16QAM modulation
 %   - AWGN channel
-%   - 16QAM demodulator with soft-decision demodulation
+%   - 16QAM demodulation with soft-decision
 %
 % Usage:
-%   [ber, nBits] = modQpskHard(EbNo, maxErrs, maxBits):  transmit random
-%     transport blocks of a fixed size over the described communication system
-%     until one of the two stopping conditions is reached (maxErrs or maxBits).
-%     Calculate and return the total bit error rate of the simulation, as well
-%     as the total number of transmitted bits.
+%   [ber, nBits] = mod16QamSoft(EbNo, maxErrs, maxBits)
+%
+%   Transmit random bit strings of a fixed size over the described communication
+%   system until either the stop condition "maxErrs" (max. number of bit errors)
+%   or "maxBits" (max. number of transmitted bits) is reached. In the end,
+%   calculate and return the total bit error rate and the total nubmer of trans-
+%   mitted bits. The Eb/N0 of the channel is set to "EbNo".
 %
 % Input:
 %   EbNo:     the desired Eb/N0 value in dB
@@ -29,7 +31,7 @@
 % Daniel Weibel <danielmartin.weibel@polimi.it> July 2016
 %------------------------------------------------------------------------------%
 
-function [ber, nBits] = modQpskSoft(EbNo, maxErrs, maxBits)
+function [ber, nBits] = mod16QamSoft(EbNo, maxErrs, maxBits)
 
 args.EbNo      = EbNo;
 args.maxErrs   = maxErrs;

@@ -14,7 +14,7 @@
 %         if method=='soft', log-likelihood ratio (LLR) for each bit as a
 %         column vector
 %
-% Understandig LTE With Matlab, Chap. 3, p. 75-76 
+% Understandig LTE With Matlab, Chap. 4, p. 75-76 
 
 % Daniel Weibel <danielmartin.weibel@polimi.it> July 2016
 %------------------------------------------------------------------------------%
@@ -60,13 +60,13 @@ switch method
     Qam16.DecisionMethod = 'Hard decision';
     Qam64.DecisionMethod = 'Hard decision';
   case 'soft'
-    % Note: property "VarianceSource" is only relevant if "DecisionMethod" is 
-    % 'Approximate log-likelihood'.
-    Qpsk.DecisionMethod  = 'Approximate log-likelihood';
+    % Note: property "VarianceSource" only takes effect if "DecisionMethod" is 
+    % 'Approximate log-likelihood ratio' or 'Log-likelihood ratio'.
+    Qpsk.DecisionMethod  = 'Approximate log-likelihood ratio';
     Qpsk.VarianceSource  = 'Input port';
-    Qam16.DecisionMethod = 'Approximate log-likelihood';
+    Qam16.DecisionMethod = 'Approximate log-likelihood ratio';
     Qam16.VarianceSource = 'Input port';
-    Qam64.DecisionMethod = 'Approximate log-likelihood';
+    Qam64.DecisionMethod = 'Approximate log-likelihood ratio';
     Qam64.VarianceSource = 'Input port';
   otherwise
     error('Argument "method" must be ''hard'' or ''soft''.');
