@@ -1,4 +1,4 @@
-% mod64QamHard - Run BER evaluation on simple communication system.
+% chain1_64QamHard - Run BER evaluation on simple communication system.
 %
 % The communication system consists of:
 %   - 64QAM modulation
@@ -6,7 +6,7 @@
 %   - 64QAM demodulation with hard-decision
 %
 % Usage:
-%   [ber, nBits] = mod64QamHard(EbNo, maxErrs, maxBits)
+%   [ber, nBits] = chain1_64QamHard(EbNo, maxErrs, maxBits)
 %
 %   Transmit random bit strings of a fixed size over the described communication
 %   system until either the stop condition "maxErrs" (max. number of bit errors)
@@ -31,12 +31,12 @@
 % Daniel Weibel <danielmartin.weibel@polimi.it> July 2016
 %------------------------------------------------------------------------------%
 
-function [ber, nBits] = mod64QamHard(EbNo, maxErrs, maxBits)
+function [ber, nBits] = chain1_64QamHard(EbNo, maxErrs, maxBits)
 
 args.EbNo      = EbNo;
 args.maxErrs   = maxErrs;
 args.maxBits   = maxBits;
-args.scheme    = '64QAM';
+args.modScheme    = '64QAM';
 args.demodType = 'hard';
 
-[ber nBits] = sysMod(args);
+[ber nBits] = chain1(args);

@@ -1,4 +1,4 @@
-% sysModScram - Simple communication system for bit error rate evaluation.
+% chain2 - Simple communication system for bit error rate evaluation.
 %
 % The communication system consists of:
 %   - Scrambling
@@ -17,7 +17,7 @@
 %   - Soft-decision demodulation
 %
 % Usage:
-%   [ber, nBits] = sysModScram(args)
+%   [ber, nBits] = chain2(args)
 %
 % Input:
 %   args: structure with the following elements:
@@ -36,7 +36,7 @@
 % Daniel Weibel <danielmartin.weibel@polimi.it> July 2016
 %------------------------------------------------------------------------------%
 
-function [ber, nBits] = sysModScram(args)
+function [ber, nBits] = chain2(args)
 
 % Arguments
 EbNo      = args.EbNo;       % Scalar

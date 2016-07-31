@@ -1,14 +1,12 @@
-% modScramQpskHard - Run BER evaluation on simple communication system.
+% chain1_64QamSoft- Run BER evaluation on simple communication system.
 %
 % The communication system consists of:
-%   - Scrambling
-%   - QPSK modulation
+%   - 64QAM modulation
 %   - AWGN channel
-%   - QPSK demodulation with hard-decision
-%   - Descrambling
+%   - 64QAM demodulation with soft-decision
 %
 % Usage:
-%   [ber, nBits] = modScramQpskHard(EbNo, maxErrs, maxBits)
+%   [ber, nBits] = modQpskSoft(EbNo, maxErrs, maxBits)
 %
 %   Transmit random bit strings of a fixed size over the described communication
 %   system until either the stop condition "maxErrs" (max. number of bit errors)
@@ -28,17 +26,17 @@
 % Note: the interface of this function is compatible with the BERTool of the
 % Communication System Toolbox.
 %
-% Understanding LTE With Matlab, Chap. 04, Ex. 02
+% Understanding LTE With Matlab, Chap. 04, Ex. 01
 
 % Daniel Weibel <danielmartin.weibel@polimi.it> July 2016
 %------------------------------------------------------------------------------%
 
-function [ber, nBits] = modScramQpskHard(EbNo, maxErrs, maxBits)
+function [ber, nBits] = chain1_64QamSoft(EbNo, maxErrs, maxBits)
 
 args.EbNo      = EbNo;
 args.maxErrs   = maxErrs;
 args.maxBits   = maxBits;
-args.scheme    = 'QPSK';
-args.demodType = 'hard';
+args.modScheme    = '64QAM';
+args.demodType = 'soft';
 
-[ber nBits] = sysModScram(args);
+[ber nBits] = chain1(args);

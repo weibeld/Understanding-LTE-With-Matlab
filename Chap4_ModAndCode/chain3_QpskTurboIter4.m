@@ -1,14 +1,16 @@
-% modScram16QamHard - Run BER evaluation on simple communication system.
+% chain3_QpskTurboIter4 - Run BER evaluation on simple communication system.
 %
 % The communication system consists of:
+%   - Turbo encoding
 %   - Scrambling
-%   - 16QAM modulation
+%   - QPSK modulation
 %   - AWGN channel
-%   - 16QAM demodulation with hard-decision
-%   - Descrambling
+%   - QPSK demodulation with soft-decision (LLR output)
+%   - Descrambling of LLRs
+%   - Turbo decoding with 4 iterations
 %
 % Usage:
-%   [ber, nBits] = modScram16QamHard(EbNo, maxErrs, maxBits)
+%   [ber, nBits] = chain3_QpskTurboIter4(EbNo, maxErrs, maxBits)
 %
 %   Transmit random bit strings of a fixed size over the described communication
 %   system until either the stop condition "maxErrs" (max. number of bit errors)
@@ -28,17 +30,20 @@
 % Note: the interface of this function is compatible with the BERTool of the
 % Communication System Toolbox.
 %
-% Understanding LTE With Matlab, Chap. 04, Ex. 02
+% Understanding LTE With Matlab, Chap. 04, Ex. 03
 
 % Daniel Weibel <danielmartin.weibel@polimi.it> July 2016
 %------------------------------------------------------------------------------%
 
-function [ber, nBits] = modScram16QamHard(EbNo, maxErrs, maxBits)
+function [ber, nBits] = chain3_QpskTurboIter4(EbNo, maxErrs, maxBits)
 
-args.EbNo      = EbNo;
-args.maxErrs   = maxErrs;
-args.maxBits   = maxBits;
-args.scheme    = '16QAM';
-args.demodType = 'hard';
+args.EbNo       = EbNo;
+args.maxErrs    = maxErrs;
+args.maxBits    = maxBits;
+args.modScheme  = 'QPSK';
+args.demodType  = 'soft';
+args.coding     = 'turbo';
+args.decodeIter = 4;
 
-[ber nBits] = sysModScram(args);
+
+[ber nBits] = chain3(args);

@@ -4,15 +4,14 @@
 %   out = lteDemodulate(signal, scheme, method, noiseVar)
 %
 % Input:
-%   signal:    received signal as a complex vector (in-phase vs. quadrature)
-%   scheme:    demodulation scheme, 'QPSK'|'16QAM'|'64QAM'
-%   method:    demodulation decision method, 'hard'|'soft'
-%   noiseVar:  noise variance in current subframe, only needed if method=='soft'
+%   signal:   received signal as a complex vector (in-phase vs. quadrature)
+%   scheme:   demodulation scheme, 'QPSK'|'16QAM'|'64QAM'
+%   method:   demodulation decision method, 'hard'|'soft'
+%   noiseVar: only needed if method=='soft', noise variance as a scalar
 %
 % Output:
-%   out:  if method=='hard', the demodulated bits as a column vector;
-%         if method=='soft', log-likelihood ratio (LLR) for each bit as a
-%         column vector
+%   out:  if method=='hard', the demodulated bits; if method=='soft', the
+%         log-likelihood ratio (LLR) for received each bit
 %
 % Understandig LTE With Matlab, Chap. 4, p. 75-76 
 

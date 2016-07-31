@@ -1,15 +1,15 @@
-% getInterleaverIndices - Get indices for LTE turbo code interleaver.
+% getInterleaverIndices - Get permutation vector for LTE turbo code interleaver.
 %
 % Usage:
 %  indices = getInterleaverIndices(blockLength)
 %
 % Input:
-%   blockLength: length of the input block for the coder in bits; this must be
-%                one of the 188 accepted block sizes between 40 and 6144 bits.
+%   blockLength: length of the input block to the coder; this must be one of
+%                the 188 accepted block sizes between 40 and 6144 bits.
 %
 % Output:
-%   indices: the inteleaver indices (i.e. a permutation of 1:blockLength) as a
-%            column vector
+%   indices: the inteleaver indices (i.e. a permutation of the numbers in
+%            1:blockLength) as a column vector
 %
 % Understanding LTE With Matlab, Chap. 4, p. 89
 

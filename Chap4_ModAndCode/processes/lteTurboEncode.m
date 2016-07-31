@@ -1,34 +1,39 @@
-% lteTurboEncode - Code a codeblock with an LTE turbo encoder.
+% lteTurboEncode - Encode a codeblock with the LTE turbo encoder.
 %
 % Usage:
-%   codedBits = lteTurboEncode(bits, interleaverIndices)
+%   outBits = lteTurboEncode(inBits)
 %
 % Input:
-%   bits:                the block of bits to encode
-%   interleaverIndices:  
+%   inBits:  the block of bits to encode as a column vector
 %
 % Output:
-%   codedBits:  the encoded input bits
+%   outBits:  the encoded input bits as a 3*(length(inBits)+4) column vector;
+%             this corresponds to the 1/3 code rate of the turbo coder plus
+%             four tailbits for each of the three output streams.
 %
 % Understanding LTE With Matlab, Chap. 4, p. 88
 
 % Daniel Weibel <danielmartin.weibel@polimi.it> July 2016
 %------------------------------------------------------------------------------%
 
-function codedBits = lteTurboEncode(bits, interleaverIndices)
+function outBits = lteTurboEncode(inBits)
 
 persistent Encoder
 if isempty(Encoder)
   % Convert the polynomial description of the two convolutional encoders to a
-  % trellis description. The polynomial description includes (as specified by
-  % the LTE standard):
+  % trellis description. The polynomial description consists of (as specified
+  % by the LTE standard):
   %   - Constraint length: 4
   %   - Generator polynomial matrix: [13 15]
   %   - Feedback connection polynomial: 13
   trellis = poly2trellis(4, [13 15], 13);
-  % Create a turbo encoder according to the LTE specifications
+  % Create turbo encoder
   Encoder = comm.TurboEncoder('TrellisStructure', trellis, ...
                               'InterleaverIndicesSource', 'Input port');
 end
 
-codedBits = Encoder.step(bits, interleaverIndices);
+% Interleaver indices (i.e. permutation of input bits) for the interleaver
+interleaverIndices = getInterleaverIndices(length(inBits));
+
+% Encode
+outBits = Encoder.step(inBits, interleaverIndices);

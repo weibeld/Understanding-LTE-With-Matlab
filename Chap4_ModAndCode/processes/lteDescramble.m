@@ -36,7 +36,7 @@ switch method
     seq(seq == 1) = -1;
     seq(seq == 0) =  1;
     % Descramble LLRs by element-wise multiplication with scrambling sequence
-    out = in .* seq
+    out = in .* seq;
 
   otherwise
     error('Argument "method" must be ''hard'' or ''soft''.');

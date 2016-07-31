@@ -1,14 +1,14 @@
-% modScramQpskSoft - Run BER evaluation on simple communication system.
+% chain2_64QamkHard - Run BER evaluation on simple communication system.
 %
 % The communication system consists of:
 %   - Scrambling
-%   - QPSK modulation
+%   - 64QAM modulation
 %   - AWGN channel
-%   - QPSK demodulation with soft-decision (LLR output)
-%   - Descrambling of LLRs
+%   - 64QAM demodulation with hard-decision
+%   - Descrambling
 %
 % Usage:
-%   [ber, nBits] = modScramQpskSoft(EbNo, maxErrs, maxBits)
+%   [ber, nBits] = chain2_64QamkHard(EbNo, maxErrs, maxBits)
 %
 %   Transmit random bit strings of a fixed size over the described communication
 %   system until either the stop condition "maxErrs" (max. number of bit errors)
@@ -33,12 +33,12 @@
 % Daniel Weibel <danielmartin.weibel@polimi.it> July 2016
 %------------------------------------------------------------------------------%
 
-function [ber, nBits] = modScramQpskSoft(EbNo, maxErrs, maxBits)
+function [ber, nBits] = chain2_64QamkHard(EbNo, maxErrs, maxBits)
 
 args.EbNo      = EbNo;
 args.maxErrs   = maxErrs;
 args.maxBits   = maxBits;
-args.scheme    = 'QPSK';
-args.demodType = 'soft';
+args.modScheme    = '64QAM';
+args.demodType = 'hard';
 
-[ber nBits] = sysModScram(args);
+[ber nBits] = chain2(args);

@@ -1,12 +1,12 @@
-% modQpskHard - Run BER evaluation on simple communication system.
+% chain1_16QamHard - Run BER evaluation on simple communication system.
 %
 % The communication system consists of:
-%   - QPSK modulation
+%   - 16QAM modulation
 %   - AWGN channel
-%   - QPSK demodulation with hard-decision
+%   - 16QAM demodulation with hard-decision
 %
 % Usage:
-%   [ber, nBits] = modQpskHard(EbNo, maxErrs, maxBits)
+%   [ber, nBits] = chain1_16QamHard(EbNo, maxErrs, maxBits)
 %
 %   Transmit random bit strings of a fixed size over the described communication
 %   system until either the stop condition "maxErrs" (max. number of bit errors)
@@ -31,12 +31,12 @@
 % Daniel Weibel <danielmartin.weibel@polimi.it> July 2016
 %------------------------------------------------------------------------------%
 
-function [ber, nBits] = modQpskHard(EbNo, maxErrs, maxBits)
+function [ber, nBits] = chain1_16QamHard(EbNo, maxErrs, maxBits)
 
 args.EbNo      = EbNo;
 args.maxErrs   = maxErrs;
 args.maxBits   = maxBits;
-args.scheme    = 'QPSK';
+args.modScheme    = '16QAM';
 args.demodType = 'hard';
 
-[ber nBits] = sysMod(args);
+[ber nBits] = chain1(args);

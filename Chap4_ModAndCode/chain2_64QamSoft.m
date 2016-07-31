@@ -1,12 +1,14 @@
-% mod16QamSoft- Run BER evaluation on simple communication system.
+% chain2_64QamkSoft - Run BER evaluation on simple communication system.
 %
 % The communication system consists of:
-%   - 16QAM modulation
+%   - Scrambling
+%   - 64QAM modulation
 %   - AWGN channel
-%   - 16QAM demodulation with soft-decision
+%   - 64QAM demodulation with soft-decision (LLR output)
+%   - Descrambling of LLRs
 %
 % Usage:
-%   [ber, nBits] = mod16QamSoft(EbNo, maxErrs, maxBits)
+%   [ber, nBits] = chain2_64QamkSoft(EbNo, maxErrs, maxBits)
 %
 %   Transmit random bit strings of a fixed size over the described communication
 %   system until either the stop condition "maxErrs" (max. number of bit errors)
@@ -26,17 +28,17 @@
 % Note: the interface of this function is compatible with the BERTool of the
 % Communication System Toolbox.
 %
-% Understanding LTE With Matlab, Chap. 04, Ex. 01
+% Understanding LTE With Matlab, Chap. 04, Ex. 02
 
 % Daniel Weibel <danielmartin.weibel@polimi.it> July 2016
 %------------------------------------------------------------------------------%
 
-function [ber, nBits] = mod16QamSoft(EbNo, maxErrs, maxBits)
+function [ber, nBits] = chain2_64QamkSoft(EbNo, maxErrs, maxBits)
 
 args.EbNo      = EbNo;
 args.maxErrs   = maxErrs;
 args.maxBits   = maxBits;
-args.scheme    = '16QAM';
+args.modScheme    = '64QAM';
 args.demodType = 'soft';
 
-[ber nBits] = sysMod(args);
+[ber nBits] = chain2(args);
