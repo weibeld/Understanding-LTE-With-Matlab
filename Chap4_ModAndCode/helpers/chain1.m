@@ -22,7 +22,7 @@
 %           args.EbNo:      desired Eb/N0 value in dB
 %           args.maxErrs:   number of bit errors after which to stop simulation
 %           args.maxBits:   number of sent bits after which to stop simulation
-%           args.scheme:    modulation scheme, 'QPSK'|'16QAM'|'64QAM'
+%           args.modScheme:    modulation modScheme, 'QPSK'|'16QAM'|'64QAM'
 %           args.demodType: demodulation method, 'hard'|'soft'
 %
 % Output:
@@ -42,18 +42,18 @@ function [ber, nBits] = chain1(args)
 EbNo      = args.EbNo;       % Scalar
 maxErrs   = args.maxErrs;    % Scalar integer
 maxBits   = args.maxBits;    % Scalar integer
-scheme    = args.scheme;     % String
+modScheme = args.modScheme;  % String
 demodType = args.demodType;  % String
 
 % Message size in bits
 msgSize = 2400;
 % Number of modulation symbols
-switch scheme
+switch modScheme
   case 'QPSK',  M = 4;
   case '16QAM', M = 16;
   case '64QAM', M = 64;
   otherwise
-    error('Argument "scheme" must be ''QPSK'', ''16QAM'', or ''64QAM''.');
+    error('Argument "modScheme" must be ''QPSK'', ''16QAM'', or ''64QAM''.');
 end
 % Number of bits per modulation symbol
 k = log2(M); 
@@ -89,7 +89,7 @@ while ((nErrs < maxErrs) && (nBits < maxBits))
   % Generate random bit string
   txBits = getBits(msgSize);
   % Modulate nBits
-  txSymb = lteModulate(txBits, scheme);
+  txSymb = lteModulate(txBits, modScheme);
 
   %----------------------------------------------------------------------------%
   % Channel
@@ -102,11 +102,11 @@ while ((nErrs < maxErrs) && (nBits < maxBits))
   switch demodType
     % Demodulation with hard-decision
     case 'hard'
-      rxBits = lteDemodulate(rxSymb, scheme, demodType);
+      rxBits = lteDemodulate(rxSymb, modScheme, demodType);
     % Demodulation with soft-decision
     case 'soft'
       % Calculate log-likelihood ratio for each bit (real number)
-      llr = lteDemodulate(rxSymb, scheme, demodType, noiseVar);
+      llr = lteDemodulate(rxSymb, modScheme, demodType, noiseVar);
       % Translate LLRs to bits (for default demodulator use 'PosTo0NegTo1')
       rxBits = llr2bit(llr, 'PosTo0NegTo1');
   end

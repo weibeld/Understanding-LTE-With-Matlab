@@ -27,6 +27,7 @@ if isempty(Decoder)
   %   - Constraint length: 4
   %   - Generator polynomial matrix: [13 15]
   %   - Feedback connection polynomial: 13
+  % This is the default trellis structure of comm.TurboDecoder.
   % Note that the APP decoders in the turbo decoder have the same trellis
   % structure as the convolutional encoders in the turbo encoder.
   trellis = poly2trellis(4, [13 15], 13);
@@ -41,3 +42,7 @@ interleaverIndices = getInterleaverIndices(blockLength);
 
 % Decode
 outBits = Decoder.step(llr, interleaverIndices);
+
+% For some reason the decoded bits seem to be the inverse of the real bits.
+% Change all 1's to 0's and vice versa.
+outBits = xor(outBits, ones(length(outBits), 1));

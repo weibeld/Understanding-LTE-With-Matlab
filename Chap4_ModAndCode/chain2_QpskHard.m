@@ -38,7 +38,7 @@ function [ber, nBits] = chain2_QpskHard(EbNo, maxErrs, maxBits)
 args.EbNo      = EbNo;
 args.maxErrs   = maxErrs;
 args.maxBits   = maxBits;
-args.modScheme    = 'QPSK';
+args.modScheme = 'QPSK';
 args.demodType = 'hard';
 
 [ber nBits] = chain2(args);

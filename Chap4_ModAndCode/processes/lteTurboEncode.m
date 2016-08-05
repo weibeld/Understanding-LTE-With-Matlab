@@ -26,6 +26,7 @@ if isempty(Encoder)
   %   - Constraint length: 4
   %   - Generator polynomial matrix: [13 15]
   %   - Feedback connection polynomial: 13
+  % This is the default trellis structure of comm.TurboEncoder.
   trellis = poly2trellis(4, [13 15], 13);
   % Create turbo encoder
   Encoder = comm.TurboEncoder('TrellisStructure', trellis, ...
